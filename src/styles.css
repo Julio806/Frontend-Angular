@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+/* Evitar scroll horizontal por elementos que se pasan */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Todas las imágenes responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Por si tienes iframes/videos */
+iframe, video {
+  max-width: 100%;
+  height: auto;
+}

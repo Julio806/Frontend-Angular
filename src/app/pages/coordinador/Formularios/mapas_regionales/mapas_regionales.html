@@ -1,0 +1,218 @@
+<div class="contenedor">
+
+    <div class="card-form">
+
+        <h2>Registro de actor</h2>
+
+        <form (ngSubmit)="guardarDatos()">
+
+            <div class="grid">
+
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Nombre del actor</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Nombre legal o comercial de la persona u organización a registrar.
+                            </span>
+                        </div>
+                    </div>
+                    <input type="text" [(ngModel)]="mapaRegional.nombreActor" name="nombreActor">
+                </div>
+
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Tipo de actor</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Clasificación de la entidad (ej: productor, cooperativa, institución pública).
+                            </span>
+                        </div>
+                    </div>
+                    <select [(ngModel)]="mapaRegional.tipoActor" name="tipoActor">
+                        <option value="" disabled selected>Seleccione…</option>
+                        <option *ngFor="let tipo of tiposActor">{{ tipo }}</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Región / municipio / localidad</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Ubicación geográfica de la sede principal o del área de influencia inmediata.
+                            </span>
+                        </div>
+                    </div>
+                    <input type="text" [(ngModel)]="mapaRegional.regionMunicipioLocalidad"
+                        name="regionMunicipioLocalidad">
+                </div>
+
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Coordenadas</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Latitud y longitud de la ubicación principal (ej: 19.4326, -99.1332).
+                            </span>
+                        </div>
+                    </div>
+                    <input type="text" [(ngModel)]="mapaRegional.coordenadas" name="coordenadas">
+                </div>
+
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Nivel de presencia</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Alcance geográfico de sus operaciones (regional, estatal, nacional, internacional).
+                            </span>
+                        </div>
+                    </div>
+                    <select [(ngModel)]="mapaRegional.presencia" name="presencia">
+                        <option value="" disabled selected>Seleccione…</option>
+                        <option *ngFor="let nivel of nivelesPresencia">{{ nivel }}</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Tamaño</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Clasificación del actor por su volumen de operación, ingresos o número de empleados (pequeño, mediano, grande).
+                            </span>
+                        </div>
+                    </div>
+                    <select [(ngModel)]="mapaRegional.tamanio" name="tamanio">
+                        <option value="" disabled selected>Seleccione…</option>
+                        <option *ngFor="let t of tamanios">{{ t }}</option>
+                    </select>
+                </div>
+
+                <div class="campo campo-full">
+                    <div class="label-with-tooltip">
+                        <label>Descripción de oferta / servicios</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Detalle los productos o servicios que ofrece el actor a la cadena de valor regional.
+                            </span>
+                        </div>
+                    </div>
+                    <textarea rows="3" [(ngModel)]="mapaRegional.descripcionOfertaServicios"
+                        name="descripcionOfertaServicios"></textarea>
+                </div>
+
+                <div class="campo campo-full">
+                    <div class="label-with-tooltip">
+                        <label>Municipios que atiende</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Liste las áreas geográficas específicas (municipios) donde el actor desarrolla sus actividades o tiene clientes.
+                            </span>
+                        </div>
+                    </div>
+                    <textarea rows="2" [(ngModel)]="mapaRegional.municipiosAtiende"
+                        name="municipiosAtiende"></textarea>
+                </div>
+
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Certificaciones</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Documentos de calidad, origen, o estándar que posea el actor (ej: iso, comercio justo, orgánico).
+                            </span>
+                        </div>
+                    </div>
+                    <textarea rows="2" [(ngModel)]="mapaRegional.certificaciones"
+                        name="certificaciones"></textarea>
+                </div>
+
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Capacitación</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Describa brevemente los cursos, talleres o programas de capacitación que ofrece el actor (temas, modalidades y público).
+                            </span>
+                        </div>
+                    </div>
+                    <textarea rows="2" [(ngModel)]="mapaRegional.ofertaCapacitacion"
+                        name="ofertaCapacitacion"></textarea>
+                </div>
+
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Persona de contacto</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Nombre y cargo de la persona clave para establecer comunicación.
+                            </span>
+                        </div>
+                    </div>
+                    <input type="text" [(ngModel)]="mapaRegional.personaContacto" name="personaContacto">
+                </div>
+                
+                <div class="campo">
+                    <div class="label-with-tooltip">
+                        <label>Teléfono</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Número de teléfono principal de contacto.
+                            </span>
+                        </div>
+                    </div>
+                    <input type="text" [(ngModel)]="mapaRegional.telefono" name="telefono">
+                </div>
+
+                <div class="campo campo-full">
+                    <div class="label-with-tooltip">
+                        <label>Correo electrónico</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Dirección de correo electrónico de contacto principal.
+                            </span>
+                        </div>
+                    </div>
+                    <input type="text" [(ngModel)]="mapaRegional.correoElectronico" name="correoElectronico">
+                </div>
+
+                <div class="campo campo-full">
+                    <hr style="grid-column: span 2; margin-top: 10px; margin-bottom: 5px; border-top: 1px solid #ddd;">
+                    <div class="label-with-tooltip">
+                        <label>Redes sociales</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">?</i>
+                            <span class="tooltip-text">
+                                Liste las url completas (facebook, instagram, sitio web, etc.) separadas por comas o saltos de línea.
+                            </span>
+                        </div>
+                    </div>
+                    <textarea rows="3" [(ngModel)]="mapaRegional.redesSociales" name="redesSociales"></textarea>
+                </div>
+
+            </div>
+
+            <div class="contenedor-btn">
+                <button type="submit" class="btn-guardar">Guardar datos</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

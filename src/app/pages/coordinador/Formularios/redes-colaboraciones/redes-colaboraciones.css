@@ -1,0 +1,217 @@
+/* =======================
+   NAVBARS
+======================= */
+.navbar-superior {
+    background-color: white;
+    padding: 10px 25px;
+    border-bottom: 2px solid #ddd;
+}
+
+.navbar-superior img {
+    height: 55px;
+    margin-right: 15px;
+}
+
+.navbar-inferior {
+    background-color: #003366;
+    color: white;
+    padding: 13px 25px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* =======================
+   CONTENEDOR Y TARJETAS
+======================= */
+.contenedor {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.card-form {
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.card-form h2 {
+    margin-bottom: 20px;
+    color: #003366;
+    border-left: 8px solid #003366;
+    padding-left: 12px;
+}
+
+/* =======================
+   GRID
+======================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 25px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-full {
+    grid-column: span 2;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+input, select, textarea {
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #003366;
+    box-shadow: 0 0 4px rgba(0,51,102,0.4);
+}
+
+/* =======================
+   BOTÓN
+======================= */
+.contenedor-btn {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.btn-guardar {
+    background-color: #003366;
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-guardar:hover {
+    background-color: #0055aa;
+}
+
+
+/* ... código CSS anterior ... */
+
+/* =======================
+   BOTÓN
+======================= */
+.contenedor-btn {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.btn-guardar {
+    background-color: #003366;
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-guardar:hover {
+    background-color: #0055aa;
+}
+
+/* =========================================================
+   TOOLTIP DE AYUDA (Nuevo)
+   ========================================================= */
+
+/* 1. Contenedor que alinea la etiqueta y el tooltip */
+.label-with-tooltip {
+    display: flex;
+    align-items: center;
+    /* Quitamos el margen inferior de la etiqueta individual y lo movemos al contenedor */
+    margin-bottom: 6px; 
+}
+
+/* 2. Asegurarse que la etiqueta dentro del contenedor no tenga margen duplicado */
+.label-with-tooltip label {
+    margin-bottom: 0;
+}
+
+/* 3. Contenedor principal del ícono de información (define la posición relativa) */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
+    cursor: help;
+}
+
+/* 4. Estilo del ícono '?' (usando el color principal #003366) */
+.info-icon {
+    color: #ffffff; 
+    background-color: #003366; 
+    border-radius: 50%; 
+    width: 18px; 
+    height: 18px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 13px; 
+    font-style: normal; 
+    font-weight: bold;
+    cursor: help;
+}
+
+/* 5. El cuadro de texto del tooltip (inicialmente oculto) */
+.tooltip-text {
+    visibility: hidden;
+    width: 280px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    padding: 10px;
+    border-radius: 6px;
+    
+    /* Posicionamiento */
+    position: absolute;
+    z-index: 10;
+    bottom: 100%; /* Coloca el tooltip arriba del ícono */
+    left: 50%;
+    margin-left: -140px; /* Centra el tooltip (mitad del ancho) */
+    margin-bottom: 12px;
+
+    /* Transición de aparición */
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+
+    /* Fuente */
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: normal;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 6. Flecha inferior del tooltip */
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+/* 7. Mostrar el tooltip al pasar el ratón */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

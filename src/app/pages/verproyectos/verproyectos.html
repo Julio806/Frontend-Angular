@@ -1,0 +1,188 @@
+<!-- =======================
+       NAVBAR SUPERIOR BLANCO
+======================= -->
+<nav class="navbar-superior">
+  <div class="logo-container">
+    <img src="/Imegenes/Imagen1.png" alt="Logo de Chiapas">
+    <img src="/Imegenes/pleca_educacion_dic24.png" alt="Logo de Educación">
+    <img src="/Imegenes/pleca_tecnm.jpg" alt="Logo de TecNM">
+  </div>
+</nav>
+
+<!-- =======================
+       NAVBAR INFERIOR AZUL
+======================= -->
+<nav class="navbar-inferior">
+  <div class="titulo-navbar">
+    Gestión de Proyectos del Café
+  </div>
+  <div class="menu">
+    <!-- TODOS -->
+    <div class="menu-item" (click)="filtrarPorSubtema('Todos')">
+      Todos
+    </div>
+
+    <!-- PRODUCCIÓN / CULTIVO -->
+    <div class="menu-item">
+      Producción / Cultivo
+      <div class="submenu">
+        <a (click)="filtrarPorSubtema('Siembra')">Siembra</a>
+        <a (click)="filtrarPorSubtema('Crecimiento del cafeto')">Crecimiento del cafeto</a>
+        <a (click)="filtrarPorSubtema('Floración')">Floración</a>
+        <a (click)="filtrarPorSubtema('Desarrollo del fruto (cereza)')">Desarrollo del fruto (cereza)</a>
+        <a (click)="filtrarPorSubtema('Cosecha')">Cosecha</a>
+      </div>
+    </div>
+
+    <!-- COSECHA / BENEFICIO -->
+    <div class="menu-item">
+      Cosecha / Beneficio
+      <div class="submenu">
+        <a (click)="filtrarPorSubtema('Lavado')">Lavado</a>
+        <a (click)="filtrarPorSubtema('Proceso natural (secado)')">Proceso natural (secado)</a>
+        <a (click)="filtrarPorSubtema('Despulpe')">Despulpe</a>
+        <a (click)="filtrarPorSubtema('Trilla y clasificación')">Trilla y clasificación</a>
+        <a (click)="filtrarPorSubtema('Almacenamiento')">Almacenamiento</a>
+        <a (click)="filtrarPorSubtema('Distribución/exportación')">Distribución/exportación</a>
+      </div>
+    </div>
+
+    <!-- COMERCIALIZACIÓN -->
+    <div class="menu-item">
+      Comercialización
+      <div class="submenu">
+        <a (click)="filtrarPorSubtema('Marketing')">Marketing</a>
+      </div>
+    </div>
+  </div>
+</nav>
+  <button
+    type="button"
+    class="btn-volver-home"
+    (click)="volverAlHome()"
+  >
+    🏠 Volver al inicio
+  </button>
+<!-- ======================================
+         CONTENEDOR PRINCIPAL
+======================================= -->
+<div class="contenedor-principal">
+
+  <!-- =======================
+         GALERÍA DE PROYECTOS GUARDADOS
+  ======================= -->
+  <div class="projects-section" *ngIf="savedProjects().length > 0">
+    <h3 class="section-title">Proyectos guardados</h3>
+
+    <div class="gallery">
+      <div class="file-item" *ngFor="let project of savedProjects()">
+        <div class="file-preview">
+          <img
+            *ngIf="project.imagenUrl"
+            [src]="project.imagenUrl"
+            [alt]="project.nombre"
+            class="file-image"
+          />
+          <div *ngIf="!project.imagenUrl" class="file-icon">
+            <span class="icon">📦</span>
+          </div>
+        </div>
+
+        <div class="project-info">
+          <div class="project-title">{{ project.nombre }}</div>
+          <div class="project-category">{{ project.actividad || 'Sin categoría' }}</div>
+          <div class="project-author">Tec: {{ project.tecnologico }}</div>
+          <div class="project-status">
+            <span [ngClass]="obtenerClaseEstatus(project.estado)">
+              {{ project.estado }}
+            </span>
+          </div>
+        </div>
+
+        <!-- ACCIONES DE LA TARJETA -->
+        <div class="card-actions">
+          <button
+            type="button"
+            class="btn-card btn-view"
+            (click)="verProyecto(project)">
+            👁 Info
+          </button>
+
+          <button
+            type="button"
+            class="btn-card btn-preview"
+            (click)="previewFile(project)"
+            [disabled]="!project.documentoUrl"
+            [title]="project.documentoUrl ? 'Visualizar documento' : 'Sin documento'">
+            🔍 Visualizar
+          </button>
+
+          <button
+            type="button"
+            class="btn-card btn-download"
+            (click)="downloadFile(project)"
+            [disabled]="!project.documentoUrl"
+            [title]="project.documentoUrl ? 'Descargar documento' : 'Sin documento'">
+            ⬇ Descargar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================
+         DETALLE DEL PROYECTO (OPCIONAL)
+  ======================= -->
+  <div *ngIf="proyectoSeleccionado as p" class="detalle-proyecto-card">
+  <button
+    type="button"
+    class="btn-cerrar-detalle"
+    (click)="cerrarDetalle()">
+    ✖
+  </button>
+
+  <div class="detalle-imagen">
+    <img *ngIf="p.imagenUrl; else noImagen"
+         [src]="p.imagenUrl"
+         alt="Imagen representativa del proyecto">
+    <ng-template #noImagen>
+      <div class="placeholder-imagen">
+        Sin imagen disponible
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="detalle-info">
+    <h3>{{ p.nombre }}</h3>
+    <p><strong>Tecnológico:</strong> {{ p.tecnologico }}</p>
+    <p><strong>Empresa vinculada:</strong> {{ p.empresaVinculada }}</p>
+    <p>
+      <strong>Estado:</strong>
+      <span [ngClass]="obtenerClaseEstatus(p.estado || '')">
+        {{ p.estado }}
+      </span>
+    </p>
+    <p><strong>Actividad / subtema:</strong> {{ p.actividad }}</p>
+    <p><strong>Descripción:</strong></p>
+    <p>{{ p.descripcion }}</p>
+
+    <div class="detalle-actions">
+      <button *ngIf="p.documentoUrl"
+              type="button"
+              class="btn-download-large"
+              (click)="previewFile(p)">
+        🔍 Visualizar documento
+      </button>
+
+      <button *ngIf="p.documentoUrl"
+              type="button"
+              class="btn-download-large btn-secondary-large"
+              (click)="downloadFile(p)">
+        ⬇ Descargar documento
+      </button>
+    </div>
+  </div>
+</div>
+
+
+</div>

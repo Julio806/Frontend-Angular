@@ -1,0 +1,342 @@
+/* =======================
+   NAVBARS (MISMO ESTILO)
+======================== */
+.navbar-superior {
+    background-color: white;
+    padding: 10px 25px;
+    border-bottom: 2px solid #ddd;
+}
+.navbar-superior img {
+    height: 55px;
+    margin-right: 15px;
+}
+
+.navbar-inferior {
+    background-color: #0D3B66;
+    color: white;
+    padding: 13px 25px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* =======================
+   CONTENEDOR Y TARJETAS
+======================== */
+.contenedor {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+form {
+    width: 100%;
+}
+
+.card-form {
+    width: 100%;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border-left: 5px solid #0D3B66;
+}
+
+.card-form h2 {
+    margin-bottom: 20px;
+    color: #0D3B66;
+    border-bottom: 2px solid #0D3B66;
+    padding-bottom: 10px;
+    font-size: 22px;
+}
+
+/* =======================
+   GRID DEL FORMULARIO
+======================== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 25px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-full {
+    grid-column: span 2;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #0D3B66;
+}
+
+input, select, textarea {
+    padding: 12px;
+    border: 2px solid #0D3B66;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: "Roboto", sans-serif;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #0D3B66;
+    box-shadow: 0 0 6px rgba(13, 59, 102, 0.3);
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Mensajes de error */
+.error {
+    color: #d32f2f;
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+.file-info {
+    color: #2e7d32;
+    font-size: 13px;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+/* =======================
+   BOTONES
+======================== */
+.contenedor-btn {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-guardar,
+.btn-siguiente,
+.btn-regresar {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Botón Guardar */
+.btn-guardar {
+    background-color: #0D3B66;
+    color: white;
+    box-shadow: 0 2px 8px rgba(13, 59, 102, 0.2);
+}
+
+.btn-guardar:hover {
+    background-color: #0A2D4F;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 59, 102, 0.3);
+}
+
+.btn-guardar:active {
+    transform: translateY(0);
+}
+
+/* Botón Siguiente */
+.btn-siguiente {
+    background-color: #0D3B66;
+    color: white;
+    box-shadow: 0 2px 8px rgba(13, 59, 102, 0.2);
+}
+
+.btn-siguiente:hover:not(:disabled) {
+    background-color: #0A2D4F;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 59, 102, 0.3);
+}
+
+.btn-siguiente:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-siguiente:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #999;
+}
+
+/* Botón Regresar */
+.btn-regresar {
+    background-color: #0D3B66;
+    color: white;
+    box-shadow: 0 2px 8px rgba(13, 59, 102, 0.2);
+}
+
+.btn-regresar:hover {
+    background-color: #0A2D4F;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 59, 102, 0.3);
+}
+
+.btn-regresar:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor-btn {
+        flex-direction: column;
+    }
+
+    .btn-guardar,
+    .btn-siguiente,
+    .btn-regresar {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-full {
+        grid-column: span 1;
+    }
+
+    .card-form {
+        padding: 20px;
+    }
+
+    .card-form h2 {
+        font-size: 18px;
+    }
+}
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor-btn {
+        flex-direction: column;
+    }
+
+    .btn-guardar,
+    .btn-siguiente,
+    .btn-regresar {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-full {
+        grid-column: span 1;
+    }
+
+    .card-form {
+        padding: 20px;
+    }
+
+    .card-form h2 {
+        font-size: 18px;
+    }
+}
+
+/* =========================================================
+   TOOLTIP DE AYUDA
+   ========================================================= */
+
+/* 1. Contenedor que alinea la etiqueta y el tooltip */
+.label-with-tooltip {
+    display: flex;
+    align-items: center;
+    /* Quitamos el margen inferior de la etiqueta individual y lo movemos al contenedor */
+    margin-bottom: 8px; 
+}
+
+/* 2. Asegurarse que la etiqueta dentro del contenedor no tenga margen duplicado */
+.label-with-tooltip label {
+    margin-bottom: 0;
+}
+
+/* 3. Contenedor principal del ícono de información (define la posición relativa) */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
+    cursor: help;
+}
+
+/* 4. Estilo del ícono '?' */
+.info-icon {
+    /* Color de fondo: #0D3B66 (coincide con el color principal del formulario) */
+    color: #ffffff; /* Color del texto (blanco) */
+    background-color: #0D3B66; 
+    border-radius: 50%; 
+    width: 18px; 
+    height: 18px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 13px; 
+    font-style: normal; 
+    font-weight: bold;
+    cursor: help;
+}
+
+/* 5. El cuadro de texto del tooltip (inicialmente oculto) */
+.tooltip-text {
+    visibility: hidden;
+    width: 280px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    padding: 10px;
+    border-radius: 6px;
+    
+    /* Posicionamiento */
+    position: absolute;
+    z-index: 10;
+    bottom: 100%; /* Coloca el tooltip arriba del ícono */
+    left: 50%;
+    margin-left: -140px; /* Centra el tooltip (mitad del ancho) */
+    margin-bottom: 12px;
+
+    /* Transición de aparición */
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+
+    /* Fuente */
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: normal;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 6. Flecha inferior del tooltip */
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+/* 7. Mostrar el tooltip al pasar el ratón */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

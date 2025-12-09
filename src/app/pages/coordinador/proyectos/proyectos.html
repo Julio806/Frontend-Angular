@@ -1,0 +1,507 @@
+<!-- LISTA DE PROYECTOS -->
+<div class="page-wrapper">
+  <div class="header-hero">
+    <div>
+      <h1>CaféHub · Proyectos</h1>
+      <p>Consulta, filtra y administra los proyectos registrados en el sistema.</p>
+    </div>
+    <div class="header-pill">
+      <span class="dot"></span>
+      <span>
+        {{ proyectos.length }} proyecto(s) en total
+      </span>
+    </div>
+  </div>
+
+  <div class="card proyectos-card">
+    <!-- ENCABEZADO + FILTROS -->
+    <div class="card-header-main">
+      <div>
+        <h2>Proyectos registrados 📄</h2>
+        <p class="card-subtitle" *ngIf="proyectos.length > 0">
+          Usa la barra de búsqueda o los filtros para encontrar un proyecto rápido.
+        </p>
+        <p class="card-subtitle text-muted" *ngIf="proyectos.length === 0">
+          Aún no hay proyectos registrados. Cuando captures uno, aparecerá aquí.
+        </p>
+      </div>
+
+      <div class="toolbar" *ngIf="proyectos.length > 0">
+        <div class="toolbar-filters">
+          <div class="filtro-group">
+            <label>Buscar</label>
+            <div class="input-with-icon">
+              <span>🔍</span>
+              <input
+                type="text"
+                class="filtro-input"
+                placeholder="Nombre, actividad o empresa..."
+                [(ngModel)]="filtroBusqueda"
+                (ngModelChange)="onFiltroChange()"
+                name="filtroBusqueda"
+              />
+            </div>
+          </div>
+
+          <div class="filtro-group">
+            <label>Estado</label>
+            <select
+              class="filtro-select"
+              [(ngModel)]="filtroEstado"
+              (ngModelChange)="onFiltroChange()"
+              name="filtroEstado"
+            >
+              <option value="">Todos</option>
+              <option *ngFor="let estado of estadosProyecto" [value]="estado">
+                {{ estado }}
+              </option>
+            </select>
+          </div>
+
+          <div class="filtro-group">
+            <label>Empresa</label>
+            <select
+              class="filtro-select"
+              [(ngModel)]="filtroEmpresa"
+              (ngModelChange)="onFiltroChange()"
+              name="filtroEmpresa"
+            >
+              <option value="">Todas</option>
+              <option *ngFor="let empresa of empresasVinculadas" [value]="empresa">
+                {{ empresa }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIN PROYECTOS -->
+    <div *ngIf="proyectos.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>Sin proyectos aún</h3>
+      <p>Cuando registres un nuevo proyecto, lo verás en esta lista.</p>
+    </div>
+
+    <!-- LISTA DE PROYECTOS (CARDS + PAGINACIÓN) -->
+    <div *ngIf="proyectos.length > 0">
+      <!-- Si no coincide ningún proyecto con los filtros -->
+      <div *ngIf="proyectosFiltrados.length === 0" class="empty-state">
+        <div class="empty-icon">🔎</div>
+        <h3>No se encontraron resultados</h3>
+        <p>Intenta cambiar los filtros o la búsqueda.</p>
+      </div>
+
+      <div *ngIf="proyectosFiltrados.length > 0">
+        <div class="lista-proyectos-grid">
+          <div
+            *ngFor="let proyecto of proyectosFiltradosPaginados"
+            class="proyecto-card-item"
+          >
+            <div class="proyecto-card-main">
+              <div class="proyecto-card-header-row">
+                <h3 class="proyecto-card-title">
+                  {{ proyecto.nombre || 'Proyecto sin nombre' }}
+                </h3>
+              </div>
+
+              <p class="proyecto-card-empresa">
+                🏢 {{ proyecto.empresaVinculada || 'Sin empresa vinculada' }}
+              </p>
+
+              <div class="proyecto-card-tags">
+                <span class="tag">
+                  🎯 {{ proyecto.actividad || 'Sin actividad' }}
+                </span>
+                <span class="tag soft">
+                  💡 {{ proyecto.necesidad || 'Sin necesidad registrada' }}
+                </span>
+              </div>
+
+              <p
+                class="proyecto-card-descripcion"
+                [title]="proyecto.descripcion"
+              >
+                {{ proyecto.descripcion || 'Sin descripción capturada.' }}
+              </p>
+            </div>
+
+            <div class="proyecto-card-side">
+              <span class="badge-estado-chip">
+                {{ proyecto.estadoProyecto || 'Sin estado' }}
+              </span>
+
+              <div class="proyecto-card-actions">
+                <button
+                  type="button"
+                  class="btn btn-xs btn-info"
+                  (click)="abrirModalDocumentos(proyecto)"
+                >
+                  Ver detalles
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-xs btn-outline-primary"
+                  (click)="editarProyecto(proyecto)"
+                >
+                  Editar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGINACIÓN -->
+        <div class="paginacion-bar">
+          <span class="paginacion-info">
+            Mostrando
+            <strong>{{ indiceInicio }}</strong>
+            –
+            <strong>{{ indiceFin }}</strong>
+            de
+            <strong>{{ totalProyectosFiltrados }}</strong>
+            proyecto(s)
+          </span>
+
+          <div class="paginacion-controles">
+            <button
+              type="button"
+              class="btn btn-xs btn-secondary"
+              (click)="irPaginaAnterior()"
+              [disabled]="currentPage === 1"
+            >
+              ◀ Anterior
+            </button>
+
+            <span class="paginacion-estado">
+              Página {{ currentPage }} de {{ totalPaginas }}
+            </span>
+
+            <button
+              type="button"
+              class="btn btn-xs btn-secondary"
+              (click)="irPaginaSiguiente()"
+              [disabled]="currentPage === totalPaginas"
+            >
+              Siguiente ▶
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================
+     MODAL: DETALLES PROYECTO
+=========================== -->
+<div class="proyecto-modal-backdrop" *ngIf="mostrarModalDocs">
+  <div class="proyecto-modal">
+    <!-- HEADER -->
+    <div class="modal-header">
+      <div>
+        <h3>{{ proyectoEnEdicion?.nombre || 'Proyecto y documentos' }}</h3>
+        <p class="modal-subtitle" *ngIf="proyectoEnEdicion as p">
+          <span class="badge badge-estado">
+            {{ p.estadoProyecto || 'Sin estado' }}
+          </span>
+          <span class="badge badge-actividad">
+            {{ p.actividad || 'Sin actividad' }}
+          </span>
+          <span class="badge badge-empresa">
+            {{ p.empresaVinculada || 'Sin empresa vinculada' }}
+          </span>
+        </p>
+      </div>
+      <button
+        type="button"
+        class="btn-icon"
+        (click)="cerrarModalDocumentos()"
+      >
+        ✖
+      </button>
+    </div>
+
+    <!-- BODY -->
+    <div class="modal-body" *ngIf="proyectoEnEdicion as p">
+      <div class="modal-layout">
+        <!-- COLUMNA IZQUIERDA: PORTADA + GALERÍA -->
+        <div class="modal-left">
+          <!-- Portada -->
+          <div class="card soft-card portada-card">
+            <h4>Imagen representativa</h4>
+
+            <ng-container *ngIf="imagenes.length > 0; else noPortada">
+              <img
+                [src]="getMediaUrl(imagenes[0])"
+                alt="Imagen representativa"
+                class="portada-img"
+              />
+            </ng-container>
+
+            <ng-template #noPortada>
+              <div class="portada-placeholder">
+                <span>Sin imagen representativa</span>
+                <small>Sube una imagen en la sección de archivos.</small>
+              </div>
+            </ng-template>
+          </div>
+
+          <!-- Galería de imágenes -->
+          <div class="card soft-card">
+            <div class="card-header-inline">
+              <h4>Galería de imágenes</h4>
+              <span class="pill">{{ imagenes.length }} imagen(es)</span>
+            </div>
+
+            <p *ngIf="imagenes.length === 0" class="text-muted">
+              Aún no hay imágenes cargadas para este proyecto.
+            </p>
+
+            <div class="imagenes-grid" *ngIf="imagenes.length > 0">
+              <div class="imagen-item" *ngFor="let img of imagenes">
+                <img [src]="getMediaUrl(img)" [alt]="img.fileName" />
+                <div class="imagen-caption">
+                  <span class="imagen-nombre" [title]="img.fileName">
+                    {{ img.fileName }}
+                  </span>
+                  <div class="imagen-actions">
+                    <button
+                      class="btn btn-xs btn-outline-primary"
+                      (click)="verDocumento(img)"
+                    >
+                      Ver
+                    </button>
+                    <button
+                      class="btn btn-xs btn-warning"
+                      (click)="seleccionarDocParaActualizar(img)"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-xs btn-danger"
+                      (click)="eliminarDocumento(img)"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: RESUMEN + ARCHIVOS + EDICIÓN -->
+        <div class="modal-right">
+          <!-- RESUMEN DEL PROYECTO (modo lectura) -->
+          <div class="card soft-card resumen-card">
+            <h4>Resumen del proyecto</h4>
+            <dl class="resumen-list">
+              <div class="resumen-item">
+                <dt>Nombre</dt>
+                <dd>{{ p.nombre || 'Sin nombre' }}</dd>
+              </div>
+              <div class="resumen-item">
+                <dt>Actividad</dt>
+                <dd>{{ p.actividad || 'Sin actividad registrada' }}</dd>
+              </div>
+              <div class="resumen-item">
+                <dt>Necesidad</dt>
+                <dd>{{ p.necesidad || 'Sin necesidad registrada' }}</dd>
+              </div>
+              <div class="resumen-item">
+                <dt>Empresa vinculada</dt>
+                <dd>{{ p.empresaVinculada || 'Sin empresa vinculada' }}</dd>
+              </div>
+              <div class="resumen-item">
+                <dt>Estado</dt>
+                <dd>{{ p.estadoProyecto || 'Sin estado' }}</dd>
+              </div>
+              <div class="resumen-item resumen-item-full">
+                <dt>Descripción</dt>
+                <dd>
+                  {{ p.descripcion || 'Sin descripción capturada.' }}
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- SUBIR NUEVO ARCHIVO -->
+          <div class="card soft-card">
+            <h4>Subir nuevo archivo</h4>
+            <p class="text-muted">
+              Puedes subir imágenes (JPG, PNG, etc.) o documentos (PDF, Word, etc.).
+            </p>
+            <input
+              id="fileInputDocsNuevo"
+              type="file"
+              (change)="onFileChangeNuevo($event)"
+            />
+            <button
+              (click)="subirDocumento()"
+              class="btn-primary btn-block"
+              style="margin-top: .5rem;"
+            >
+              Subir archivo
+            </button>
+          </div>
+
+          <!-- LISTA DE DOCUMENTOS (no imagen) -->
+          <div class="card soft-card">
+            <div class="card-header-inline">
+              <h4>Documentos</h4>
+              <span class="pill">
+                {{ otrosDocumentos.length }} documento(s)
+              </span>
+            </div>
+
+            <p *ngIf="otrosDocumentos.length === 0" class="text-muted">
+              No se han subido documentos aún.
+            </p>
+
+            <ul
+              *ngIf="otrosDocumentos.length > 0"
+              class="file-list"
+            >
+              <li *ngFor="let doc of otrosDocumentos">
+                <span class="file-name" [title]="doc.fileName">
+                  📄 {{ doc.fileName }}
+                </span>
+
+                <div class="file-actions">
+                  <button
+                    (click)="verDocumento(doc)"
+                    class="btn btn-xs btn-info"
+                  >
+                    Ver
+                  </button>
+
+                  <button
+                    (click)="descargarDocumento(doc)"
+                    class="btn btn-xs btn-outline-primary"
+                  >
+                    Descargar
+                  </button>
+
+                  <button
+                    (click)="eliminarDocumento(doc)"
+                    class="btn btn-xs btn-danger"
+                  >
+                    Eliminar
+                  </button>
+
+                  <button
+                    (click)="seleccionarDocParaActualizar(doc)"
+                    class="btn btn-xs btn-warning"
+                  >
+                    Editar archivo
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- ACTUALIZAR DOCUMENTO / IMAGEN SELECCIONADO -->
+          <div *ngIf="docParaActualizar" class="card soft-card">
+            <h4>Actualizar archivo seleccionado</h4>
+            <p>
+              Archivo actual:
+              <strong>{{ docParaActualizar.fileName }}</strong>
+            </p>
+            <input
+              id="fileInputUpdate"
+              type="file"
+              (change)="onFileChangeActualizar($event)"
+            />
+            <button
+              (click)="actualizarDocumento()"
+              class="btn-primary btn-block"
+              style="margin-top: .5rem;"
+            >
+              Actualizar archivo
+            </button>
+          </div>
+
+          <!-- FORMULARIO DE EDICIÓN DE PROYECTO -->
+          <div class="card soft-card">
+            <h4>Editar datos del proyecto</h4>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Nombre del proyecto</label>
+                <input
+                  type="text"
+                  [(ngModel)]="p.nombre"
+                  name="nombreModal"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Actividad</label>
+                <input
+                  type="text"
+                  [(ngModel)]="p.actividad"
+                  name="actividadModal"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Necesidad</label>
+                <input
+                  type="text"
+                  [(ngModel)]="p.necesidad"
+                  name="necesidadModal"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Empresa vinculada</label>
+                <input
+                  type="text"
+                  [(ngModel)]="p.empresaVinculada"
+                  name="empresaVinculadaModal"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Estado del proyecto</label>
+                <input
+                  type="text"
+                  [(ngModel)]="p.estadoProyecto"
+                  name="estadoProyectoModal"
+                />
+              </div>
+
+              <div class="form-group full-width">
+                <label>Descripción</label>
+                <textarea
+                  [(ngModel)]="p.descripcion"
+                  name="descripcionModal"
+                  rows="4"
+                ></textarea>
+              </div>
+            </div>
+
+            <button
+              (click)="guardarCambiosProyecto()"
+              class="btn-primary btn-block"
+            >
+              Guardar cambios del proyecto
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="modal-footer">
+      <button
+        type="button"
+        (click)="cerrarModalDocumentos()"
+        class="btn-secondary"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>

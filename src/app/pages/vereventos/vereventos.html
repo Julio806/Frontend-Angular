@@ -1,0 +1,111 @@
+<!-- NAVBAR superior / inferior si quieres reutilizar lo de proyectos -->
+<nav class="navbar-superior">
+  <div class="logo-container">
+    <img src="/Imegenes/Imagen1.png" alt="Logo de Chiapas">
+    <img src="/Imegenes/pleca_educacion_dic24.png" alt="Logo de Educación">
+    <img src="/Imegenes/pleca_tecnm.jpg" alt="Logo de TecNM">
+  </div>
+</nav>
+
+<nav class="navbar-inferior">
+  <div class="titulo-navbar">
+    Eventos del Café
+  </div>
+  <div class="menu">
+    <div class="menu-item" (click)="filtrarPorTipo('Todos')">
+      Todos
+    </div>
+
+    <div class="menu-item">
+      Ferias / Expos
+      <div class="submenu">
+        <a (click)="filtrarPorTipo('Feria')">Ferias</a>
+        <a (click)="filtrarPorTipo('Exposición')">Exposiciones</a>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      Concursos
+      <div class="submenu">
+        <a (click)="filtrarPorTipo('Concurso')">Concursos de calidad</a>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      Conferencias
+      <div class="submenu">
+        <a (click)="filtrarPorTipo('Conferencia')">Conferencias</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="contenedor-principal">
+
+  <!-- LISTA DE EVENTOS -->
+  <div class="events-section" *ngIf="eventosFiltrados().length > 0">
+    <h3 class="section-title">Eventos</h3>
+
+    <div class="gallery">
+      <div class="file-item" *ngFor="let e of eventosFiltrados()">
+        <div class="file-preview">
+          <div class="date-badge">
+            <span class="day">{{ e.fecha_inicio | date:'dd' }}</span>
+            <span class="month">{{ e.fecha_inicio | date:'MMM' }}</span>
+          </div>
+          <img src="/Imegenes/evento_default.png" alt="{{ e.nombre }}" class="file-image">
+        </div>
+
+        <div class="project-info">
+          <div class="project-title">{{ e.nombre }}</div>
+          <div class="project-category">{{ e.tipo || 'Evento' }}</div>
+          <div class="project-author">
+            {{ e.lugar }}
+          </div>
+          <div class="project-status">
+            {{ e.fecha_inicio | date:'dd/MM/yyyy' }} - {{ e.fecha_fin | date:'dd/MM/yyyy' }}
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button
+            type="button"
+            class="btn-card btn-view"
+            (click)="verEvento(e)">
+            👁 Info
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETALLE DEL EVENTO -->
+  <div *ngIf="eventoSeleccionado as ev" class="detalle-proyecto-card">
+    <button
+      type="button"
+      class="btn-cerrar-detalle"
+      (click)="cerrarDetalle()">
+      ✖
+    </button>
+
+    <div class="detalle-imagen">
+      <img
+        src="/Imegenes/evento_default.png"
+        alt="Imagen del evento">
+    </div>
+
+    <div class="detalle-info">
+      <h3>{{ ev.nombre }}</h3>
+      <p><strong>Tipo:</strong> {{ ev.tipo }}</p>
+      <p><strong>Lugar:</strong> {{ ev.lugar }}</p>
+      <p>
+        <strong>Fechas:</strong>
+        {{ ev.fecha_inicio | date:'dd/MM/yyyy' }} -
+        {{ ev.fecha_fin | date:'dd/MM/yyyy' }}
+      </p>
+      <p><strong>Descripción:</strong></p>
+      <p>{{ ev.descripcion }}</p>
+    </div>
+  </div>
+
+</div>

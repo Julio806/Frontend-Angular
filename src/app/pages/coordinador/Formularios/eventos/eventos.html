@@ -1,0 +1,174 @@
+<div class="contenedor">
+
+    <div class="card-form">
+        <h2>Eventos</h2>
+
+        <div class="grid">
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Nombre del evento</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Título completo con el que se promociona la actividad (ej: "congreso nacional de productividad agrícola").
+                        </span>
+                    </div>
+                </div>
+                <input type="text" [(ngModel)]="evento.nombreEvento">
+            </div>
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Tipo</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Clasificación de la actividad según su formato: taller, congreso, foro, etc.
+                        </span>
+                    </div>
+                </div>
+                <select [(ngModel)]="evento.tipo">
+                    <option disabled selected>Seleccione…</option>
+                    <option *ngFor="let t of tiposEvento">{{ t }}</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <div class="label-with-tooltip">
+                    <label>Fecha y horario</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Indique la fecha y el horario de inicio y fin del evento. ej: "01/dic/2025, 9:00 a 14:00 hrs".
+                        </span>
+                    </div>
+                </div>
+                <input type="text" [(ngModel)]="evento.fechaHorario">
+            </div>
+
+            <div class="campo">
+                <div class="label-with-tooltip">
+                    <label>Sede</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Lugar físico o plataforma virtual donde se realizará el evento. (ej: zoom, palacio de convenciones).
+                        </span>
+                    </div>
+                </div>
+                <input type="text" [(ngModel)]="evento.sede">
+            </div>
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Organizador institucional</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Nombre de la institución o dependencia principal responsable de la organización.
+                        </span>
+                    </div>
+                </div>
+                <input type="text" [(ngModel)]="evento.organizador">
+            </div>
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Objetivo del evento</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Describa el propósito principal o el resultado esperado del evento.
+                        </span>
+                    </div>
+                </div>
+                <textarea rows="3" [(ngModel)]="evento.objetivo"></textarea>
+            </div>
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Público objetivo</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            A quién está dirigido el evento (ej: "investigadores", "productores de la región sur", "público general").
+                        </span>
+                    </div>
+                </div>
+                <textarea rows="2" [(ngModel)]="evento.publicoObjetivo"></textarea>
+            </div>
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Programa</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Agenda detallada del evento, incluyendo horarios de las ponencias, mesas redondas o actividades.
+                        </span>
+                    </div>
+                </div>
+                <textarea rows="3" [(ngModel)]="evento.programa"></textarea>
+            </div>
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Ponentes</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Liste los nombres y, si es relevante, el perfil o la institución de los expositores.
+                        </span>
+                    </div>
+                </div>
+                <textarea rows="2" [(ngModel)]="evento.ponentes"></textarea>
+            </div>
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Requisitos de inscripción</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Pasos o documentación necesaria para que los asistentes puedan registrarse y participar.
+                        </span>
+                    </div>
+                </div>
+                <textarea rows="2" [(ngModel)]="evento.requisitos"></textarea>
+            </div>
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Materiales del evento</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Recursos o documentos que se entregarán a los participantes (ej: memorias, libros, kit de bienvenida).
+                        </span>
+                    </div>
+                </div>
+                <textarea rows="2" [(ngModel)]="evento.materiales"></textarea>
+            </div>
+
+            <div class="campo campo-full">
+                <div class="label-with-tooltip">
+                    <label>Evidencias (fotos, videos, presentación)</label>
+                    <div class="tooltip-container">
+                        <i class="info-icon">?</i>
+                        <span class="tooltip-text">
+                            Documentos de respaldo o material gráfico que demuestran la realización del evento.
+                        </span>
+                    </div>
+                </div>
+                <input type="file" (change)="seleccionarArchivo($event)">
+            </div>
+
+        </div>
+
+        <div class="contenedor-btn">
+            <button class="btn-guardar" (click)="guardarEvento()">Guardar evento</button>
+        </div>
+
+    </div>
+</div>

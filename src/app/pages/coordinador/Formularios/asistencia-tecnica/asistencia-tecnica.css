@@ -1,0 +1,257 @@
+/* =========================================================
+   NAVBAR SUPERIOR (CON LOGOS)
+   ========================================================= */
+.navbar-superior {
+    background-color: #ffffff;
+    padding: 10px 25px;
+    border-bottom: 2px solid #dcdcdc;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-top {
+    height: 55px;
+    object-fit: contain;
+}
+
+/* =========================================================
+   NAVBAR INFERIOR
+   ========================================================= */
+.navbar-inferior {
+    background-color: #003366;
+    color: #ffffff;
+    padding: 15px 25px;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+.form-container {
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.titulo {
+    color: #003366;
+    font-weight: bold;
+    border-left: 8px solid #003366;
+    padding-left: 15px;
+    font-size: 28px;
+    margin-bottom: -10px;
+}
+
+/* =========================================================
+   TARJETAS (CARDS)
+   ========================================================= */
+.card-form {
+    width: 100%;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.subtitulo {
+    margin-bottom: 25px;
+    color: #003366;
+    font-size: 22px;
+    border-left: 6px solid #003366;
+    padding-left: 15px;
+}
+
+/* =========================================================
+   GRID DEL FORMULARIO
+   ========================================================= */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: span 2;
+}
+
+/* =========================================================
+   CAMPOS DE TEXTO, SELECT, TEXTAREA
+   ========================================================= */
+label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #222222;
+}
+
+input,
+select,
+textarea {
+    padding: 12px 14px;
+    border: 1.8px solid #b5b5b5;
+    border-radius: 8px;
+    background: #fafafa;
+    font-size: 15.5px;
+    transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    background: #ffffff;
+    border-color: #003366;
+    box-shadow: 0 0 5px rgba(0, 51, 102, 0.4);
+    outline: none;
+}
+
+/* Mejora visual para textarea */
+textarea {
+    resize: vertical;
+    min-height: 85px;
+}
+
+/* =========================================================
+   BOTÓN PRINCIPAL
+   ========================================================= */
+.contenedor-btn {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.btn-guardar {
+    background-color: #003366;
+    color: #ffffff;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+}
+
+.btn-guardar:hover {
+    background-color: #0058b4;
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 900px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: span 1;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+}
+
+/* 1. Contenedor que alinea la etiqueta y el tooltip */ .label-with-tooltip {
+    display: flex;
+    align-items: center;
+    /* Quitamos el margen inferior de la etiqueta individual y lo movemos al contenedor */
+    margin-bottom: 8px;
+}
+
+/* 2. Asegurarse que la etiqueta dentro del contenedor no tenga margen duplicado */
+.label-with-tooltip label {
+    margin-bottom: 0;
+}
+
+/* 3. Contenedor principal del ícono de información (define la posición relativa) */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
+    cursor: help;
+}
+
+/* 4. Estilo del ícono '?' */
+.info-icon {
+    /* Estilos del ícono de ayuda '?' */
+    color: #ffffff; /* Color del texto (blanco) */
+    background-color: #003366; /* Color de fondo (azul marino) */
+    border-radius: 50%; /* Lo hace un círculo */
+    width: 18px; /* Ancho del círculo */
+    height: 18px; /* Alto del círculo */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    font-size: 13px; /* Tamaño de la fuente '?' */
+    font-style: normal; /* Asegura que no se vea cursiva */
+    font-weight: bold;
+    cursor: help;
+}
+
+/* 5. El cuadro de texto del tooltip (inicialmente oculto) */
+.tooltip-text {
+    visibility: hidden;
+    width: 280px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    padding: 10px;
+    border-radius: 6px;
+
+    /* Posicionamiento */
+    position: absolute;
+    z-index: 10;
+    bottom: 100%;
+    /* Coloca el tooltip arriba del ícono */
+    left: 50%;
+    margin-left: -140px;
+    /* Centra el tooltip (mitad del ancho) */
+    margin-bottom: 12px;
+
+    /* Transición de aparición */
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+
+    /* Fuente */
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: normal;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 6. Flecha inferior del tooltip */
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+/* 7. Mostrar el tooltip al pasar el ratón */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 8. Estilo para el input/textarea cuando el label tiene tooltip (solo si es necesario, pero ayuda a la coherencia) */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    /* Aquí ya tienes los estilos definidos, estos simplemente aseguran que se apliquen */
+}

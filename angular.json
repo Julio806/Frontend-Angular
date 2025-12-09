@@ -22,10 +22,19 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/Imegenes",
+                "output": "/Imegenes"
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -84,14 +93,27 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/Imegenes",
+                "output": "/Imegenes"
               }
+
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "f7d98da6-1595-4f7d-abfa-424533435be6"
   }
 }
