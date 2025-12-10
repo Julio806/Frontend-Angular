@@ -19,7 +19,7 @@ export interface Evento {
 export class EventoService {
 
   // 🔹 Endpoint privado del coordinador (protegido por JWT)
-  private apiCoordinador = 'http://localhost:8080/api/eventos';
+   private apiCoordinador = '/cafe/api/eventos';
 
   constructor(private http: HttpClient) {}
 
