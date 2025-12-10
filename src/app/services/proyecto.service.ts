@@ -39,11 +39,8 @@ export interface ProyectoPublico {
 
 @Injectable({ providedIn: 'root' })
 export class ProyectoService {
+  private apiUrl = '/cafe/api';
 
-  private readonly host =
-    typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-
-  private apiUrl = `http://${this.host}:8080/api`;
 
   constructor(private http: HttpClient) { }
 
@@ -98,15 +95,16 @@ export class ProyectoService {
 
   // ---- Proyectos públicos (página informativa) ----
   listarProyectosPublicos(): Observable<ProyectoPublico[]> {
-    const serverBase = `http://${this.host}:8080`;
-
+    const origin =
+      typeof window !== 'undefined' ? window.location.origin : '';
+    const serverBase = `${origin}/cafe`; // ej: http://191.101.232.219/cafe
     return this.http
       .get<ProyectoPublico[]>(`${this.apiUrl}/public/proyectos`)
       .pipe(
         map(proyectos =>
           proyectos.map(p => ({
             ...p,
-            imagenUrl: p.imagenUrl ? `${serverBase}${p.imagenUrl}` : null,
+             imagenUrl: p.imagenUrl ? `${serverBase}${p.imagenUrl}` : null,
             documentoUrl: p.documentoUrl ? `${serverBase}${p.documentoUrl}` : null
           }))
         )
