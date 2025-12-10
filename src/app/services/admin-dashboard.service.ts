@@ -23,8 +23,7 @@ export interface AdminDashboardSummary {
 @Injectable({ providedIn: 'root' })
 export class AdminDashboardService {
 
-  private readonly host = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-  private baseUrl = `http://${this.host}:8080/api/admin`;
+ private baseUrl = '/cafe/api/admin';
 
   constructor(private http: HttpClient) {}
 
