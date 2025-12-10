@@ -82,10 +82,11 @@ export class VerProyectosComponent implements OnInit {
     if (!match) { return; }
 
     const mediaId = match[1];
-    const host = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-    const url = `http://${host}:8080/api/media/view/${mediaId}`;
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    const url = `${origin}/cafe/api/media/download/${mediaId}`;
 
     window.open(url, '_blank');
+
   }
 
   // ⬇ Descargar documento (usa /download/{id})
