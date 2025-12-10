@@ -110,9 +110,9 @@ export class ProyectosComponent implements OnInit {
   docParaActualizar: MediaFile | null = null;
   archivoParaActualizar: File | null = null;
 
-  // base para armar URLs de media
-  private readonly host = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-  private readonly mediaBaseUrl = `http://${this.host}:8080/api/media`;
+  // Ya no hace falta host
+  private readonly mediaBaseUrl = '/cafe/api/media';
+
 
   constructor(private proyectoService: ProyectoService) {}
 
