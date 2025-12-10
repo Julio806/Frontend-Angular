@@ -6,14 +6,7 @@ import { Observable, tap } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  // Detecta el host desde donde se sirve Angular
-  // - Si corre en el navegador: usa window.location.hostname (puede ser localhost o 192.168.x.x)
-  // - Si corre en SSR: usa 'localhost' por defecto
-  private readonly host =
-    typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-
-  // Aquí armamos la URL base del backend
-  private apiUrl = `http://${this.host}:8080/api/auth`;
+  private apiUrl = '/cafe/api/auth';
 
   constructor(private http: HttpClient) {}
 
